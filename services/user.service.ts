@@ -8,6 +8,10 @@ class UserService {
         return await UserModel.create(user)
     }
 
+    public async emailExists(email:string){
+        return await UserModel.findOne({email}).lean().exec()
+    }
+
 }
 
 export default UserService

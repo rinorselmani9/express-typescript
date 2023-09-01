@@ -29,3 +29,12 @@ export class RouteNotFoundError extends BaseError {
         super()
     }
 }
+
+export class EmailExistsError extends BaseError {
+    name = 'this-email-already-exists'
+    message = 'This email already exists'
+    statusCode = 400
+    constructor (){
+       super()
+    }
+}
