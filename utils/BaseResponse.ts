@@ -1,4 +1,4 @@
-import { Response, response } from "express";
+import { Response } from "express";
 import { BaseError, InternalServerError, RouteNotFoundError } from "../exceptions/Exceptions";
 
 class BaseResponse {

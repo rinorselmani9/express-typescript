@@ -38,3 +38,11 @@ export class EmailExistsError extends BaseError {
        super()
     }
 }
+export class AuthLoginError extends BaseError {
+    name = 'email-or-password-incorrect'
+    message = 'Email or password is incorrect'
+    statusCode = 400
+    constructor (){
+       super()
+    }
+}
