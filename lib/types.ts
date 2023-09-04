@@ -1,4 +1,4 @@
-import { Secret, SignOptions } from "jsonwebtoken";
+import { JwtPayload, Secret, SignOptions } from "jsonwebtoken";
 
 export type ErrorResponse = {
     error:boolean;
@@ -24,6 +24,10 @@ export interface JwtSign {
     options?: SignOptions | undefined
 }
 
+export interface ResetPasswordPayload extends JwtPayload {
+    user_id:string
+}
+
 //Requests
 export interface LoginRequest { 
     email:string
@@ -31,4 +35,9 @@ export interface LoginRequest {
 }
 export interface ForgotPasswordRequest {
     email:string
+}
+
+export interface ResetPasswordRequest {
+    token:string,
+    new_password:string
 }

@@ -12,6 +12,14 @@ class UserService {
         return await UserModel.findOne({email}).lean().exec()
     }
 
+    public async findById(id:string) {
+        return await UserModel.findById(id)
+    }
+
+    public async findByIdAndUpdate(id:string, data:object) {
+        return await UserModel.findByIdAndUpdate(id,{})
+    }
+
 }
 
 export default UserService
