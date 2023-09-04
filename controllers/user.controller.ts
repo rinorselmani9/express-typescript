@@ -1,5 +1,7 @@
+import { config } from "dotenv";
 import { AuthLoginError, EmailExistsError } from "../exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
+import Jwt from "../lib/Jwt";
 import { LoginRequest, User } from "../lib/types";
 import UserService from "../services/user.service";
 
@@ -20,7 +22,7 @@ class UserController {
         const user = await this.userService.createUser(params)
         return user._id
     }
-    //TODO: create tokens when logging in 
+
     public async login(params: LoginRequest){
         const user = await this.userService.emailExists(params.email)
 
@@ -32,7 +34,13 @@ class UserController {
             throw new AuthLoginError()
         }
 
-        return user._id
+        const token = Jwt.sign({
+            payload : { user_id:user._id},
+            secretKey: process.env.SECRET_KEY as string,
+            options: {expiresIn: "2d"}
+        })
+
+        return token
     }
 }
 
