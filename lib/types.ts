@@ -18,13 +18,17 @@ export interface User {
     updatedAt: string;
 }
 
-export interface LoginRequest { 
-    email:string
-    password:string
-}
-
 export interface JwtSign {
     payload: string | Buffer | object
     secretKey:Secret
     options?: SignOptions | undefined
+}
+
+//Requests
+export interface LoginRequest { 
+    email:string
+    password:string
+}
+export interface ForgotPasswordRequest {
+    email:string
 }

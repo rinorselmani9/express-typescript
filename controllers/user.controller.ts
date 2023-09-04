@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import { AuthLoginError, EmailExistsError } from "../exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
-import { LoginRequest, User } from "../lib/types";
+import { ForgotPasswordRequest, LoginRequest, User } from "../lib/types";
 import UserService from "../services/user.service";
 
 class UserController {
@@ -39,6 +39,23 @@ class UserController {
             secretKey: process.env.SECRET_KEY as string,
             options: {expiresIn: "2d"}
         })
+
+        return token
+    }
+
+    public async forgotPassword(params:ForgotPasswordRequest) {
+
+        const user = await this.userService.emailExists(params.email)
+        if(!user) {
+            throw new EmailExistsError()
+        }
+
+        const token = Jwt.sign({
+            payload : { user_email:user.email},
+            secretKey: process.env.SECRET_KEY as string,
+            options: {expiresIn: "5m"}
+        })
+
 
         return token
     }
