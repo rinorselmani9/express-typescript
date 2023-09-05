@@ -52,7 +52,9 @@ export interface ForgotPasswordRequest extends ValidatedRequestSchema {
   }
 }
 
-export interface ResetPasswordRequest {
-  token: string
-  new_password: string
+export interface ResetPasswordRequest extends ValidatedRequestSchema{
+  [ContainerTypes.Body]: {
+    token: string
+    new_password: string
+  }
 }

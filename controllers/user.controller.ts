@@ -59,10 +59,10 @@ class UserController {
         return token
     }
 
-    public async resetPassword(params:ResetPasswordRequest){
+    public async resetPassword(params:ValidatedRequest<ResetPasswordRequest>){
 
         const decoded = Jwt.verify(
-            params.token,
+            params.body.token,
             process.env.SECRET_KEY as string
         ) as ResetPasswordPayload
 
@@ -72,7 +72,7 @@ class UserController {
             throw new EmailNotFoundError()
         }
 
-        const newPassword = await Bcrypt.hash(params.new_password)
+        const newPassword = await Bcrypt.hash(params.body.new_password)
         await this.userService.findByIdAndUpdate(user._id, {
             password:newPassword
         })

@@ -23,5 +23,11 @@ export class RouteValidatorSchema {
             email:Joi.string().email().required(),
         })
     }
+    static resetPassword() {
+        return Joi.object({
+            token:Joi.string().required(),
+            new_password:Joi.string().min(6).required()
+        })
+    }
 }
 
