@@ -1,5 +1,4 @@
-import { config } from "dotenv";
-import { AuthLoginError, EmailExistsError } from "../exceptions/Exceptions";
+import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
 import { ForgotPasswordRequest, LoginRequest, ResetPasswordPayload, ResetPasswordRequest, User } from "../lib/types";
@@ -47,7 +46,7 @@ class UserController {
 
         const user = await this.userService.emailExists(params.email)
         if(!user) {
-            throw new EmailExistsError()
+            throw new EmailNotFoundError()
         }
 
         const token = Jwt.sign({
@@ -70,7 +69,7 @@ class UserController {
         const user = await this.userService.findById(decoded.user_id);
 
         if(!user){
-            throw new EmailExistsError()
+            throw new EmailNotFoundError()
         }
 
         const newPassword = await Bcrypt.hash(params.new_password)

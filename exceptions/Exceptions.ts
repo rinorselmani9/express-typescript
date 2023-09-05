@@ -46,3 +46,12 @@ export class AuthLoginError extends BaseError {
        super()
     }
 }
+
+export class EmailNotFoundError extends BaseError {
+    name = 'email-not-found'
+    message = 'No user found with this email'
+    statusCode = 400 
+    constructor () {
+        super()
+    }
+}
