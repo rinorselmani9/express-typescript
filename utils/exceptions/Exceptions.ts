@@ -1,4 +1,4 @@
-import { ErrorResponse } from "../lib/types";
+import { ErrorResponse } from "../../lib/types";
 import { ExpressJoiError } from "express-joi-validation";
 
 export class BaseError extends Error implements ErrorResponse{

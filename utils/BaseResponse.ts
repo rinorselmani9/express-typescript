@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { BaseError, InternalServerError, RouteNotFoundError, JoiError } from "../exceptions/Exceptions";
+import { BaseError, InternalServerError, RouteNotFoundError, JoiError } from "./exceptions/Exceptions";
 import { ExpressJoiError } from "express-joi-validation";
 
 class BaseResponse {

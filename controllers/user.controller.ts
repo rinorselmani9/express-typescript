@@ -1,4 +1,4 @@
-import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../exceptions/Exceptions";
+import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../utils/exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
 import { ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, ValidatedRequest } from "../lib/types";
