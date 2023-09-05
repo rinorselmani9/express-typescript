@@ -22,14 +22,14 @@ class UserController {
         return user._id
     }
 
-    public async login(params: LoginRequest){
-        const user = await this.userService.emailExists(params.email)
+    public async login(params: ValidatedRequest<LoginRequest>){
+        const user = await this.userService.emailExists(params.body.email)
 
         if(!user){
             throw new AuthLoginError()
         }
 
-        if(!await Bcrypt.compare(params.password, user.password)){
+        if(!await Bcrypt.compare(params.body.password, user.password)){
             throw new AuthLoginError()
         }
 

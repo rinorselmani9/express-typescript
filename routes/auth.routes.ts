@@ -12,9 +12,13 @@ import { RouteValidator, RouteValidatorSchema } from "../lib/RouteValidations"
 const router = Router()
 //TODO: routes for login, change-password, handle types for requests
 
-router.post("/login", async (req: Request<LoginRequest>, res: Response) => {
-  BaseResponse(res).success(await UserController.login(req.body))
-})
+router.post(
+  "/login",
+  RouteValidator.body(RouteValidatorSchema.loginUser()),
+  async (req: ValidatedRequest<LoginRequest>, res: Response) => {
+    BaseResponse(res).success(await UserController.login(req))
+  }
+)
 
 router.post(
   "/register",
