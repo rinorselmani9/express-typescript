@@ -16,7 +16,7 @@ class UserService {
     }
 
     public async findByIdAndUpdate(id:string, data:object) {
-        return await UserModel.findByIdAndUpdate(id,{})
+        return await UserModel.findByIdAndUpdate(id,data)
     }
 
 }
