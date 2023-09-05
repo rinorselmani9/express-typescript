@@ -1,7 +1,7 @@
 import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
-import { ForgotPasswordRequest, LoginRequest, ResetPasswordPayload, ResetPasswordRequest, User } from "../lib/types";
+import { ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, ValidatedRequest } from "../lib/types";
 import UserService from "../services/user.service";
 
 class UserController {
@@ -10,12 +10,12 @@ class UserController {
     constructor() {
         this.userService = new UserService()
     }
-    public async registerUser(params: User){
-        if(await this.userService.emailExists(params.email)){
+    public async registerUser(params: ValidatedRequest<RegisterRequest>){
+        if(await this.userService.emailExists(params.body.email)){
             throw new EmailExistsError()
         }
 
-        params.password = await Bcrypt.hash(params.password)
+        params.body.password = await Bcrypt.hash(params.body.password)
 
 
         const user = await this.userService.createUser(params)

@@ -1,10 +1,10 @@
-import { User } from "../lib/types";
+import { RegisterRequest, User, ValidatedRequest } from "../lib/types";
 import UserModel from "../models/DB/user.model";
 
 class UserService {
 
-    public async createUser(user:User){
-        return await UserModel.create(user)
+    public async createUser(user:ValidatedRequest<RegisterRequest>){
+        return await UserModel.create(user.body)
     }
 
     public async emailExists(email:string){

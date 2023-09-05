@@ -1,4 +1,5 @@
 import { ErrorResponse } from "../lib/types";
+import { ExpressJoiError } from "express-joi-validation";
 
 export class BaseError extends Error implements ErrorResponse{
     public error: boolean = true;
@@ -27,6 +28,16 @@ export class RouteNotFoundError extends BaseError {
     statusCode = 400
     constructor() {
         super()
+    }
+}
+
+export class JoiError extends BaseError {
+    name = 'joi-error-validation'
+    message =  'Validation Error' 
+    statusCode = 400 
+    constructor(joiError: ExpressJoiError){
+        super()
+        this.details = { validation_errors: joiError.error?.details}
     }
 }
 

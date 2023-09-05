@@ -1,5 +1,6 @@
 import { Response } from "express";
-import { BaseError, InternalServerError, RouteNotFoundError } from "../exceptions/Exceptions";
+import { BaseError, InternalServerError, RouteNotFoundError, JoiError } from "../exceptions/Exceptions";
+import { ExpressJoiError } from "express-joi-validation";
 
 class BaseResponse {
     private response : Response
@@ -11,6 +12,8 @@ class BaseResponse {
         let errorOccurred
         if(err instanceof BaseError){
             errorOccurred = err
+        }else if((err as ExpressJoiError)?.error?.isJoi){
+            errorOccurred = new JoiError(err as ExpressJoiError);
         }else{
             errorOccurred = new InternalServerError()
         }
