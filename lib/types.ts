@@ -46,8 +46,10 @@ export interface LoginRequest extends ValidatedRequestSchema {
     password: string
   }
 }
-export interface ForgotPasswordRequest {
-  email: string
+export interface ForgotPasswordRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: {
+    email: string
+  }
 }
 
 export interface ResetPasswordRequest {

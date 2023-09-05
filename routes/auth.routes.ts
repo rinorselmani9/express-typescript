@@ -28,8 +28,12 @@ router.post(
   }
 )
 
-router.post("/forgot-password", async (req: Request<ForgotPasswordRequest>, res: Response) => {
-  BaseResponse(res).success(await UserController.forgotPassword(req.body))
-})
+router.post(
+  "/forgot-password",
+  RouteValidator.body(RouteValidatorSchema.forgotPassword()),
+  async (req: ValidatedRequest<ForgotPasswordRequest>, res: Response) => {
+    BaseResponse(res).success(await UserController.forgotPassword(req))
+  }
+)
 
 export default router

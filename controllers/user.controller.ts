@@ -42,9 +42,9 @@ class UserController {
         return token
     }
 
-    public async forgotPassword(params:ForgotPasswordRequest) {
+    public async forgotPassword(params:ValidatedRequest<ForgotPasswordRequest>) {
 
-        const user = await this.userService.emailExists(params.email)
+        const user = await this.userService.emailExists(params.body.email)
         if(!user) {
             throw new EmailNotFoundError()
         }
