@@ -1,7 +1,7 @@
 import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../utils/exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
-import { ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, ValidatedRequest } from "../lib/types";
+import { ForgotPasswordRequest, GetMeRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, ValidatedRequest } from "../lib/types";
 import UserService from "../services/user.service";
 
 class UserController {
@@ -77,6 +77,20 @@ class UserController {
             password:newPassword
         })
         return true
+    }
+    public async me(params:string){
+        const decoded = Jwt.verify(
+            params,
+            process.env.SECRET_KEY as string
+        ) as ResetPasswordPayload
+        
+        const user = await this.userService.findWithoutPassword(decoded.user_id)
+            
+        if(!user){
+            throw new EmailNotFoundError()
+        }
+        
+        return user
     }
 }
 

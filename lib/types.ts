@@ -66,3 +66,7 @@ export interface ResetPasswordRequest extends ValidatedRequestSchema{
     new_password: string
   }
 }
+
+export interface GetMeRequest extends ValidatedRequestSchema {
+  access_token:string
+}

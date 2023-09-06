@@ -29,5 +29,11 @@ export class RouteValidatorSchema {
             new_password:Joi.string().min(6).required()
         })
     }
+
+    static currentUser() {
+        return Joi.object({
+            access_token:Joi.string().required()
+        })
+    }
 }
 

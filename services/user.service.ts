@@ -1,4 +1,4 @@
-import { RegisterRequest, User, ValidatedRequest } from "../lib/types";
+import { RegisterRequest, ValidatedRequest } from "../lib/types";
 import UserModel from "../models/DB/user.model";
 
 class UserService {
@@ -17,6 +17,10 @@ class UserService {
 
     public async findByIdAndUpdate(id:string, data:object) {
         return await UserModel.findByIdAndUpdate(id,data)
+    }
+
+    public async findWithoutPassword (id:string){
+        return await UserModel.findById(id).select("-password")
     }
 
 }

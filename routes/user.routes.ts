@@ -1,6 +1,6 @@
-import { Response, Router } from "express"
+import { Request, Response, Router } from "express"
 import BaseResponse from "../utils/BaseResponse"
-import { ResetPasswordRequest, ValidatedRequest } from "../lib/types"
+import { GetMeRequest, ResetPasswordRequest, ValidatedRequest } from "../lib/types"
 import UserController from "../controllers/user.controller"
 import { RouteValidator, RouteValidatorSchema } from "../lib/RouteValidations"
 
@@ -13,6 +13,13 @@ router.post(
   RouteValidator.body(RouteValidatorSchema.resetPassword()),
   async (req: ValidatedRequest<ResetPasswordRequest>, res: Response) => {
     BaseResponse(res).success(await UserController.resetPassword(req))
+  }
+)
+
+router.post('/me',
+RouteValidator.headers(RouteValidatorSchema.currentUser()),
+async (req: ValidatedRequest<GetMeRequest>, res: Response) => {
+    BaseResponse(res).success(await UserController.me(req.headers.access_token))
   }
 )
 
