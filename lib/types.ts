@@ -20,6 +20,14 @@ export interface User {
   updatedAt: string
 }
 
+export interface Artist {
+    _id: string
+    full_name:string
+    nickname:string
+    createdAt: string
+    updatedAt: string
+}
+
 export interface JwtSign {
   payload: string | Buffer | object
   secretKey: Secret

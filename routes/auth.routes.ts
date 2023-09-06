@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express"
+import { Response, Router } from "express"
 import UserController from "../controllers/user.controller"
 import BaseResponse from "../utils/BaseResponse"
 import {
