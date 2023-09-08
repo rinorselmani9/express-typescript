@@ -1,7 +1,7 @@
 import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../utils/exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
-import { ForgotPasswordRequest, GetMeRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, ValidatedRequest } from "../lib/types";
+import {  ForgotPasswordRequest, GetMeRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, ValidatedRequest } from "../lib/types";
 import UserService from "../services/user.service";
 
 class UserController {
@@ -33,13 +33,9 @@ class UserController {
             throw new AuthLoginError()
         }
 
-        const token = Jwt.sign({
-            payload : { user_id:user._id},
-            secretKey: process.env.SECRET_KEY as string,
-            options: {expiresIn: "2d"}
-        })
+        const session =  await this.userService.saveSession(user._id.toString())
 
-        return token
+        return session
     }
 
     public async forgotPassword(params:ValidatedRequest<ForgotPasswordRequest>) {
@@ -78,6 +74,7 @@ class UserController {
         })
         return true
     }
+
     public async me(params:string){
         const decoded = Jwt.verify(
             params,
