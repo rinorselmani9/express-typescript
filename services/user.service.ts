@@ -42,6 +42,10 @@ class UserService {
     return twoDaysExp
   }
 
+  public tokenExpired(exp: number) {
+    return new Date().getTime() >= exp;
+  }
+
   public async saveSession(userId: string) {
     const repository = await this.redisService.fetchRepo(userSessionSchema)
     return await repository.save({

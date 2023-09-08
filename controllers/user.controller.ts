@@ -3,6 +3,7 @@ import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
 import {  ForgotPasswordRequest, GetMeRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, ValidatedRequest } from "../lib/types";
 import UserService from "../services/user.service";
+import { Request } from "express";
 
 class UserController {
     private userService: UserService
@@ -88,6 +89,11 @@ class UserController {
         }
         
         return user
+    }
+
+    public async reGenerateTokens(request: Request) {
+        const newSession = await this.userService.saveSession(request.session.user_id)
+        return newSession;
     }
 }
 

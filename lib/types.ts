@@ -2,6 +2,15 @@ import { JwtPayload, Secret, SignOptions } from "jsonwebtoken"
 import { ContainerTypes, ValidatedRequestSchema } from "express-joi-validation"
 export { ValidatedRequest } from "express-joi-validation"
 
+declare global {
+  namespace Express {
+    export interface Request {
+      user: User;
+      session: UserSession;
+    }
+  }
+}
+
 export type ErrorResponse = {
   error: boolean
   name: string
@@ -36,6 +45,15 @@ export interface JwtSign {
 
 export interface ResetPasswordPayload extends JwtPayload {
   user_id: string
+}
+
+export interface UserSession {
+  entityId: string;
+  user_id: string;
+  access_token: string;
+  refresh_token: string;
+  access_token_exp: number;
+  refresh_token_exp: number;
 }
 
 //Requests

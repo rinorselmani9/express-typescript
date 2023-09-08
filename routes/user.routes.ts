@@ -23,4 +23,8 @@ async (req: ValidatedRequest<GetMeRequest>, res: Response) => {
   }
 )
 
+router.post('/re-generate-tokens', async(req:Request, res:Response) => {
+  BaseResponse(res).success(await UserController.reGenerateTokens(req))
+})
+
 export default router
