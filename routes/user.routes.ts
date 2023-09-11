@@ -3,6 +3,7 @@ import BaseResponse from "../utils/BaseResponse"
 import { GetMeRequest, ResetPasswordRequest, ValidatedRequest } from "../lib/types"
 import UserController from "../controllers/user.controller"
 import { RouteValidator, RouteValidatorSchema } from "../lib/RouteValidations"
+import AuthMiddleware from '../middlewares/auth.middleware'
 
 const router = Router()
 
@@ -18,8 +19,10 @@ router.post(
 
 router.post('/me',
 RouteValidator.headers(RouteValidatorSchema.currentUser()),
+AuthMiddleware.validateAccessToken,
+AuthMiddleware.populateUser,
 async (req: ValidatedRequest<GetMeRequest>, res: Response) => {
-    BaseResponse(res).success(await UserController.me(req.headers.access_token))
+    BaseResponse(res).success(await UserController.me(req.user))
   }
 )
 

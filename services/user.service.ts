@@ -1,3 +1,4 @@
+import { Entity } from "redis-om"
 import { userSessionSchema } from "../entities/UserSession"
 import { RegisterRequest, ValidatedRequest } from "../lib/types"
 import UserModel from "../models/DB/user.model"
@@ -56,6 +57,12 @@ class UserService {
       refresh_token_exp: this.generateRefreshTokenExp(),
     })
   }
+
+  public async findSession(access_token:string){
+    const repo = await this.redisService.fetchRepo(userSessionSchema)
+    return await repo.search().where('access_token').equalTo(access_token).first()
+  }
+
 }
 
 export default UserService

@@ -66,3 +66,14 @@ export class EmailNotFoundError extends BaseError {
         super()
     }
 }
+
+export class InvalidAccessToken extends BaseError {
+    name = "auth-access-token-error";
+    message = "Invalid access token";
+    statusCode = 401;
+  
+    constructor() {
+      super();
+    }
+  }
+  
