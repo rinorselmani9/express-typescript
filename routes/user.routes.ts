@@ -20,6 +20,7 @@ router.post(
 router.post('/me',
 RouteValidator.headers(RouteValidatorSchema.currentUser()),
 AuthMiddleware.validateAccessToken,
+AuthMiddleware.validateTokenExpiration,
 AuthMiddleware.populateUser,
 async (req: ValidatedRequest<GetMeRequest>, res: Response) => {
     BaseResponse(res).success(await UserController.me(req.user))
