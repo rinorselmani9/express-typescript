@@ -10,7 +10,6 @@ import {
 import { RouteValidator, RouteValidatorSchema } from "../lib/RouteValidations"
 
 const router = Router()
-//TODO: routes for login, change-password, handle types for requests
 
 router.post(
   "/login",

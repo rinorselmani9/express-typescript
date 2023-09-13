@@ -7,7 +7,6 @@ import AuthMiddleware from "../middlewares/auth.middleware"
 
 const router = Router()
 
-// TODO: routes for: update-profile, add artists(should directly add it to personal favorites), delete, favorite
 
 router.post(
   "/reset-password",
