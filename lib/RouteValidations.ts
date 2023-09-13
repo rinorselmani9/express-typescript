@@ -35,5 +35,12 @@ export class RouteValidatorSchema {
             access_token:Joi.string().required()
         })
     }
+
+    static updateProfile() {
+        return Joi.object({
+            first_name: Joi.string().required(),
+            last_name: Joi.string().required()
+        })
+    }
 }
 

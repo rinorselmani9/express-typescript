@@ -88,3 +88,10 @@ export interface ResetPasswordRequest extends ValidatedRequestSchema{
 export interface GetMeRequest extends ValidatedRequestSchema {
   access_token:string
 }
+
+export interface UpdateProfileRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: {
+    first_name:string,
+    last_name:string
+  }
+}

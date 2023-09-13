@@ -1,9 +1,10 @@
 import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../utils/exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
-import {  ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, User, ValidatedRequest } from "../lib/types";
+import {  ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, UpdateProfileRequest, User, ValidatedRequest } from "../lib/types";
 import UserService from "../services/user.service";
 import { Request } from "express";
+import { request } from "http";
 
 class UserController {
     private userService: UserService
@@ -89,6 +90,15 @@ class UserController {
     public async reGenerateTokens(request: Request) {
         const newSession = await this.userService.saveSession(request.session.user_id)
         return newSession;
+    }
+
+    public async updateProfile(params: ValidatedRequest<UpdateProfileRequest>){
+        await this.userService.findByIdAndUpdate(
+            params.session.user_id,
+            params.body
+        )
+
+        return true
     }
 }
 
