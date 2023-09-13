@@ -1,7 +1,7 @@
 import { AuthLoginError, EmailExistsError, EmailNotFoundError } from "../utils/exceptions/Exceptions";
 import Bcrypt from "../lib/Bcrypt";
 import Jwt from "../lib/Jwt";
-import {  ForgotPasswordRequest, GetMeRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, User, ValidatedRequest } from "../lib/types";
+import {  ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, User, ValidatedRequest } from "../lib/types";
 import UserService from "../services/user.service";
 import { Request } from "express";
 

@@ -3,11 +3,11 @@ import BaseResponse from "../utils/BaseResponse"
 import { GetMeRequest, ResetPasswordRequest, ValidatedRequest } from "../lib/types"
 import UserController from "../controllers/user.controller"
 import { RouteValidator, RouteValidatorSchema } from "../lib/RouteValidations"
-import AuthMiddleware from '../middlewares/auth.middleware'
+import AuthMiddleware from "../middlewares/auth.middleware"
 
 const router = Router()
 
-// TODO: routes for: me(profile), update-profile, add artists(should directly add it to personal favorites), delete, favorite
+// TODO: routes for: update-profile, add artists(should directly add it to personal favorites), delete, favorite
 
 router.post(
   "/reset-password",
@@ -17,17 +17,18 @@ router.post(
   }
 )
 
-router.post('/me',
-RouteValidator.headers(RouteValidatorSchema.currentUser()),
-AuthMiddleware.validateAccessToken,
-AuthMiddleware.validateTokenExpiration,
-AuthMiddleware.populateUser,
-async (req: ValidatedRequest<GetMeRequest>, res: Response) => {
+router.post(
+  "/me",
+  RouteValidator.headers(RouteValidatorSchema.currentUser()),
+  AuthMiddleware.validateAccessToken,
+  AuthMiddleware.validateTokenExpiration,
+  AuthMiddleware.populateUser,
+  async (req: ValidatedRequest<GetMeRequest>, res: Response) => {
     BaseResponse(res).success(await UserController.me(req.user))
   }
 )
 
-router.post('/re-generate-tokens', async(req:Request, res:Response) => {
+router.post("/re-generate-tokens", async (req: Request, res: Response) => {
   BaseResponse(res).success(await UserController.reGenerateTokens(req))
 })
 

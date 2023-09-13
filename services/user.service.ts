@@ -1,4 +1,3 @@
-import { Entity } from "redis-om"
 import { userSessionSchema } from "../entities/UserSession"
 import { RegisterRequest, ValidatedRequest } from "../lib/types"
 import UserModel from "../models/DB/user.model"

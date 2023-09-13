@@ -1,4 +1,4 @@
-import mongoose, {model, Schema} from 'mongoose'
+import {model, Schema} from 'mongoose'
 import {Artist as ArtistT} from '../../lib/types'
 
 const schema = new Schema (
