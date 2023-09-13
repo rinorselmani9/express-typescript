@@ -42,5 +42,13 @@ export class RouteValidatorSchema {
             last_name: Joi.string().required()
         })
     }
+    
+    static addArtist() {
+        return Joi.object({
+            full_name: Joi.string().required(),
+            nickname: Joi.string().required(),
+            songs: Joi.array().required()
+        })
+    }
 }
 

@@ -4,7 +4,6 @@ import Jwt from "../lib/Jwt";
 import {  ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordPayload, ResetPasswordRequest, UpdateProfileRequest, User, ValidatedRequest } from "../lib/types";
 import UserService from "../services/user.service";
 import { Request } from "express";
-import { request } from "http";
 
 class UserController {
     private userService: UserService

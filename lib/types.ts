@@ -33,6 +33,7 @@ export interface Artist {
     _id: string
     full_name:string
     nickname:string
+    addedBy:string
     createdAt: string
     updatedAt: string
 }
@@ -94,4 +95,8 @@ export interface UpdateProfileRequest extends ValidatedRequestSchema {
     first_name:string,
     last_name:string
   }
+}
+
+export interface AddArtistRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: Artist
 }
