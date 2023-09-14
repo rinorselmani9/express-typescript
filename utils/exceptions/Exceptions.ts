@@ -113,3 +113,12 @@ export class MyArtistsError extends BaseError {
     super()
   }
 }
+
+export class UpdateArtistError extends BaseError {
+  name = "you-can't-update-this-artist"
+  message = "You cant't update this artist"
+  statusCode = 400
+  constructor() {
+    super()
+  }
+}

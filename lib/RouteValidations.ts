@@ -50,5 +50,14 @@ export class RouteValidatorSchema {
             songs: Joi.array().required()
         })
     }
+
+    static updateArtist(){
+        return Joi.object({
+            _id:Joi.string().required(),
+            full_name: Joi.string().required(),
+            nickname: Joi.string().required(),
+            songs: Joi.array().required()
+        })
+    }
 }
 

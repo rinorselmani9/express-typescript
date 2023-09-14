@@ -100,3 +100,7 @@ export interface UpdateProfileRequest extends ValidatedRequestSchema {
 export interface AddArtistRequest extends ValidatedRequestSchema {
   [ContainerTypes.Body]: Artist
 }
+
+export interface UpdateArtistRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: Artist
+}

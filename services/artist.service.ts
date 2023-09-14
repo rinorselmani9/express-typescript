@@ -14,8 +14,17 @@ class ArtistService{
     public async getAllArtists(){
         return await ArtistModel.find();
     }
+
     public async myArtists(userId:string){
         return await ArtistModel.find({addedBy:userId});
+    }
+
+    public async findById(artistId:string){
+        return await ArtistModel.findById(artistId)
+    }
+
+    public async findByIdAndUpdate(artistId:string, data: object){
+        return await ArtistModel.findByIdAndUpdate(artistId, data)
     }
 }
 export default ArtistService
