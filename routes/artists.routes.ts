@@ -20,4 +20,8 @@ router.post(
   }
 )
 
+router.get("/", async (req: Request, res: Response) => {
+  BaseResponse(res).success(await ArtistController.getAllArtist())
+})
+
 export default router

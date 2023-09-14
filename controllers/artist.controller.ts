@@ -1,7 +1,7 @@
 import { ValidatedRequest } from "express-joi-validation"
 import ArtistService from "../services/artist.service"
 import { AddArtistRequest } from "../lib/types"
-import { ArtistExistsError } from "../utils/exceptions/Exceptions"
+import { ArtistExistsError, NoArtistsError } from "../utils/exceptions/Exceptions"
 
 class ArtistController {
     private artistService: ArtistService
@@ -17,6 +17,13 @@ class ArtistController {
             throw new ArtistExistsError()
         }
         return await this.artistService.createArtist(params.body)
+    }
+    public async getAllArtist(){
+        const artists = await this.artistService.getAllArtists();
+        if(!artists){
+            throw new NoArtistsError()
+        }
+        return artists
     }
 }
 

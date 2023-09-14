@@ -89,7 +89,16 @@ export class AccessTokenExpired extends BaseError {
 
 export class ArtistExistsError extends BaseError {
   name = "this-artist-already-exists"
-  message = "This artis already exists"
+  message = "This artist already exists"
+  statusCode = 400
+  constructor() {
+    super()
+  }
+}
+
+export class NoArtistsError extends BaseError {
+  name = "no-artists-found"
+  message = "No Artists found"
   statusCode = 400
   constructor() {
     super()

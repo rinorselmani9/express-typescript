@@ -11,5 +11,8 @@ class ArtistService{
         return await ArtistModel.create(params)
     }
 
+    public async getAllArtists(){
+        return await ArtistModel.find();
+    }
 }
 export default ArtistService
