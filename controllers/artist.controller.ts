@@ -42,7 +42,6 @@ class ArtistController {
     const artistId = params.body._id
 
     const artist = await this.artistService.findById(artistId)
-    console.log({'uId':userId, 'aId':artist?.addedBy.toString()})
     if(artist?.addedBy.toString() !== userId){
         throw new UpdateArtistError()
     }

@@ -7,7 +7,7 @@ import { AddArtistRequest, UpdateArtistRequest } from "../lib/types"
 import ArtistController from "../controllers/artist.controller"
 
 const router = Router()
-// TODO: routes: [get my fav, edit artist, delete artist, add to fav, remove from fav ]
+// TODO: routes: [get my fav, delete artist, add to fav, remove from fav ]
 
 router.post(
   "/add",
