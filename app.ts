@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use('/', authRoutes);
 app.use('/user',userRoutes)
-app.use('/artist', artistRoutes)
+app.use('/artists', artistRoutes)
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) =>  {
   BaseResponse(res).error(error)

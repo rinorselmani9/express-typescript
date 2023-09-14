@@ -104,3 +104,12 @@ export class NoArtistsError extends BaseError {
     super()
   }
 }
+
+export class MyArtistsError extends BaseError {
+  name = "you-didn't-add-any-artists"
+  message = "You haven't added artist yet"
+  statusCode = 400
+  constructor() {
+    super()
+  }
+}
