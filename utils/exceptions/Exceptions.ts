@@ -122,3 +122,12 @@ export class UpdateArtistError extends BaseError {
     super()
   }
 }
+
+export class DeleteArtistError extends BaseError {
+  name = "could-not-delete-artist"
+  message = "Could not delete artist"
+  statusCode = 400
+  constructor() {
+    super()
+  }
+}

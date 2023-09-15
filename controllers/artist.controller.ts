@@ -1,7 +1,7 @@
 import { ValidatedRequest } from "express-joi-validation"
 import ArtistService from "../services/artist.service"
-import { AddArtistRequest, UpdateArtistRequest } from "../lib/types"
-import { ArtistExistsError, MyArtistsError, NoArtistsError, UpdateArtistError } from "../utils/exceptions/Exceptions"
+import { AddArtistRequest, DeleteArtistRequest, UpdateArtistRequest } from "../lib/types"
+import { ArtistExistsError, DeleteArtistError, MyArtistsError, NoArtistsError, UpdateArtistError } from "../utils/exceptions/Exceptions"
 import { Request } from "express"
 
 class ArtistController {
@@ -47,6 +47,18 @@ class ArtistController {
     }
 
     return await this.artistService.findByIdAndUpdate(artistId, params.body);
+  }
+  
+  public async deleteArtist(params:ValidatedRequest<DeleteArtistRequest>){
+    const userId = params.session.user_id;
+    const artistId = params.body._id
+
+    const artist = await this.artistService.findById(artistId)
+    if(artist?.addedBy.toString() !== userId){
+        throw new DeleteArtistError()
+    }
+    
+    return await this.artistService.findByIdAndRemove(artistId)
   }
 }
 

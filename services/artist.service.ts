@@ -26,5 +26,9 @@ class ArtistService{
     public async findByIdAndUpdate(artistId:string, data: object){
         return await ArtistModel.findByIdAndUpdate(artistId, data)
     }
+
+    public async findByIdAndRemove(artistId:string){
+        return await ArtistModel.findByIdAndDelete(artistId)
+    }
 }
 export default ArtistService

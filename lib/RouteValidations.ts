@@ -59,5 +59,11 @@ export class RouteValidatorSchema {
             songs: Joi.array().required()
         })
     }
+
+    static deleteArtist(){
+        return Joi.object({
+            _id:Joi.string().required()
+        })
+    }
 }
 

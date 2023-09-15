@@ -3,7 +3,7 @@ import AuthMiddleware from "../middlewares/auth.middleware"
 import BaseResponse from "../utils/BaseResponse"
 import { RouteValidator, RouteValidatorSchema } from "../lib/RouteValidations"
 import { ValidatedRequest } from "express-joi-validation"
-import { AddArtistRequest, UpdateArtistRequest } from "../lib/types"
+import { AddArtistRequest, DeleteArtistRequest, UpdateArtistRequest } from "../lib/types"
 import ArtistController from "../controllers/artist.controller"
 
 const router = Router()
@@ -42,6 +42,17 @@ router.post(
   AuthMiddleware.validateTokenExpiration,
   async (req: ValidatedRequest<UpdateArtistRequest>, res: Response) => {
     BaseResponse(res).success(await ArtistController.updateArtist(req))
+  }
+)
+
+router.post(
+  "/delete",
+  RouteValidator.headers(RouteValidatorSchema.currentUser()),
+  RouteValidator.body(RouteValidatorSchema.deleteArtist()),
+  AuthMiddleware.validateAccessToken,
+  AuthMiddleware.validateTokenExpiration,
+  async (req: ValidatedRequest<DeleteArtistRequest>, res: Response) => {
+    BaseResponse(res).success(await ArtistController.deleteArtist(req))
   }
 )
 

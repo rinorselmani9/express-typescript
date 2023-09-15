@@ -104,3 +104,8 @@ export interface AddArtistRequest extends ValidatedRequestSchema {
 export interface UpdateArtistRequest extends ValidatedRequestSchema {
   [ContainerTypes.Body]: Artist
 }
+
+export interface DeleteArtistRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: Artist
+  
+ }
