@@ -131,3 +131,12 @@ export class DeleteArtistError extends BaseError {
     super()
   }
 }
+
+export class AlreadyAFavError extends BaseError {
+  name = "this-artist-is-already-in-your-favorites"
+  message = "This artist is already in your favorites"
+  statusCode = 400
+  constructor() {
+    super()
+  }
+}

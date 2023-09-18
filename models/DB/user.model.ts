@@ -7,7 +7,7 @@ const schema = new Schema (
         first_name: { type:String, required:true },
         last_name: { type:String, required:true },
         password: { type:String, required:true },
-        favoriteArtists: {type:Schema.Types.ObjectId, ref:'artists'}
+        favoriteArtists: [{type:Schema.Types.ObjectId, ref:'artists'}]
     },
     { timestamps: true }
 )

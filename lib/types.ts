@@ -25,6 +25,7 @@ export interface User {
   first_name: string
   last_name: string
   password: string
+  favoriteArtists: string[]
   createdAt: string
   updatedAt: string
 }
@@ -108,4 +109,11 @@ export interface UpdateArtistRequest extends ValidatedRequestSchema {
 export interface DeleteArtistRequest extends ValidatedRequestSchema {
   [ContainerTypes.Body]: Artist
   
- }
+}
+
+ export interface AddToFavRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: {
+    artist_id:string
+  }
+  
+}

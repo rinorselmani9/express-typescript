@@ -65,5 +65,11 @@ export class RouteValidatorSchema {
             _id:Joi.string().required()
         })
     }
+
+    static addToFav(){
+        return Joi.object({
+            artist_id:Joi.string().required()
+        })
+    }
 }
 

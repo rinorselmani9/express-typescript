@@ -3,11 +3,16 @@ import AuthMiddleware from "../middlewares/auth.middleware"
 import BaseResponse from "../utils/BaseResponse"
 import { RouteValidator, RouteValidatorSchema } from "../lib/RouteValidations"
 import { ValidatedRequest } from "express-joi-validation"
-import { AddArtistRequest, DeleteArtistRequest, UpdateArtistRequest } from "../lib/types"
+import {
+  AddArtistRequest,
+  AddToFavRequest,
+  DeleteArtistRequest,
+  UpdateArtistRequest,
+} from "../lib/types"
 import ArtistController from "../controllers/artist.controller"
 
 const router = Router()
-// TODO: routes: [get my fav, delete artist, add to fav, remove from fav ]
+// TODO: routes: [get my fav, remove from fav ]
 
 router.post(
   "/add",
@@ -53,6 +58,17 @@ router.post(
   AuthMiddleware.validateTokenExpiration,
   async (req: ValidatedRequest<DeleteArtistRequest>, res: Response) => {
     BaseResponse(res).success(await ArtistController.deleteArtist(req))
+  }
+)
+
+router.post(
+  "/add-favorite",
+  RouteValidator.headers(RouteValidatorSchema.currentUser()),
+  RouteValidator.body(RouteValidatorSchema.addToFav()),
+  AuthMiddleware.validateAccessToken,
+  AuthMiddleware.validateTokenExpiration,
+  async (req: ValidatedRequest<AddToFavRequest>, res: Response) => {
+    BaseResponse(res).success(await ArtistController.addToFav(req))
   }
 )
 

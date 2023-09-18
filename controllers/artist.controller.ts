@@ -1,14 +1,17 @@
 import { ValidatedRequest } from "express-joi-validation"
 import ArtistService from "../services/artist.service"
-import { AddArtistRequest, DeleteArtistRequest, UpdateArtistRequest } from "../lib/types"
-import { ArtistExistsError, DeleteArtistError, MyArtistsError, NoArtistsError, UpdateArtistError } from "../utils/exceptions/Exceptions"
+import { AddArtistRequest, AddToFavRequest, DeleteArtistRequest, UpdateArtistRequest } from "../lib/types"
+import { AlreadyAFavError, ArtistExistsError, DeleteArtistError, MyArtistsError, NoArtistsError, UpdateArtistError } from "../utils/exceptions/Exceptions"
 import { Request } from "express"
+import UserService from "../services/user.service"
 
 class ArtistController {
   private artistService: ArtistService
+  private userService: UserService
 
   constructor() {
     this.artistService = new ArtistService()
+    this.userService = new UserService()
   }
 
   public async addArtist(params: ValidatedRequest<AddArtistRequest>) {
@@ -37,7 +40,6 @@ class ArtistController {
   }
 
   public async updateArtist(params: ValidatedRequest<UpdateArtistRequest>){
-
     const userId = params.session.user_id;
     const artistId = params.body._id
 
@@ -59,6 +61,18 @@ class ArtistController {
     }
     
     return await this.artistService.findByIdAndRemove(artistId)
+  }
+
+  public async addToFav(params: ValidatedRequest<AddToFavRequest>){
+    const user = await this.userService.findWithoutPassword(params.session.user_id) 
+    const artistsExists = user?.favoriteArtists.find((elem) => elem === params.body.artist_id);
+
+    if(artistsExists){
+      throw new AlreadyAFavError()
+    }
+    user?.favoriteArtists.push(params.body.artist_id)
+    user?.save()
+    return true
   }
 }
 

@@ -27,7 +27,7 @@ class UserService {
   }
 
   public async findWithoutPassword(id: string) {
-    return await UserModel.findById(id).select("-password")
+    return await UserModel.findById(id).select("-password");
   }
 
   public generateAccessTokenExp() {
