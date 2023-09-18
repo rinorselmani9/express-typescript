@@ -1,7 +1,7 @@
 import { ValidatedRequest } from "express-joi-validation"
 import ArtistService from "../services/artist.service"
-import { AddArtistRequest, AddToFavRequest, DeleteArtistRequest, UpdateArtistRequest } from "../lib/types"
-import { AlreadyAFavError, ArtistExistsError, DeleteArtistError, MyArtistsError, NoArtistsError, UpdateArtistError } from "../utils/exceptions/Exceptions"
+import { AddArtistRequest, AddToFavRequest, DeleteArtistRequest, RemoveFromFavRequest, UpdateArtistRequest } from "../lib/types"
+import { AlreadyAFavError, ArtistExistsError, DeleteArtistError, MyArtistsError, NoArtistsError, NotAFavError, UpdateArtistError } from "../utils/exceptions/Exceptions"
 import { Request } from "express"
 import UserService from "../services/user.service"
 
@@ -71,7 +71,21 @@ class ArtistController {
       throw new AlreadyAFavError()
     }
     user?.favoriteArtists.push(params.body.artist_id)
-    user?.save()
+    await user?.save()
+    return true
+  }
+
+  public async removeFromFav(params: ValidatedRequest<RemoveFromFavRequest>){
+    const user = await this.userService.findWithoutPassword(params.session.user_id) 
+    if(user?.favoriteArtists){
+      const artistsExists = user?.favoriteArtists.findIndex((elem) => elem.toString() === params.body.artist_id);
+      if(artistsExists === -1){
+        throw new NotAFavError()
+      }
+      
+      user?.favoriteArtists.splice(artistsExists,1)
+      await user?.save()
+    }
     return true
   }
 }

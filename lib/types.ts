@@ -111,7 +111,14 @@ export interface DeleteArtistRequest extends ValidatedRequestSchema {
   
 }
 
- export interface AddToFavRequest extends ValidatedRequestSchema {
+export interface AddToFavRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: {
+    artist_id:string
+  }
+  
+}
+
+export interface RemoveFromFavRequest extends ValidatedRequestSchema {
   [ContainerTypes.Body]: {
     artist_id:string
   }

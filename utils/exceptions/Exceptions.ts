@@ -140,3 +140,12 @@ export class AlreadyAFavError extends BaseError {
     super()
   }
 }
+
+export class NotAFavError extends BaseError {
+  name = "this-artist-is-not-in-your-favorites"
+  message = "This artist is not in your favorites"
+  statusCode = 400
+  constructor() {
+    super()
+  }
+}

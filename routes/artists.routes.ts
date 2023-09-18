@@ -7,6 +7,7 @@ import {
   AddArtistRequest,
   AddToFavRequest,
   DeleteArtistRequest,
+  RemoveFromFavRequest,
   UpdateArtistRequest,
 } from "../lib/types"
 import ArtistController from "../controllers/artist.controller"
@@ -69,6 +70,17 @@ router.post(
   AuthMiddleware.validateTokenExpiration,
   async (req: ValidatedRequest<AddToFavRequest>, res: Response) => {
     BaseResponse(res).success(await ArtistController.addToFav(req))
+  }
+)
+
+router.post(
+  "/remove-favorite",
+  RouteValidator.headers(RouteValidatorSchema.currentUser()),
+  RouteValidator.body(RouteValidatorSchema.removeFromFav()),
+  AuthMiddleware.validateAccessToken,
+  AuthMiddleware.validateTokenExpiration,
+  async (req: ValidatedRequest<RemoveFromFavRequest>, res: Response) => {
+    BaseResponse(res).success(await ArtistController.removeFromFav(req))
   }
 )
 

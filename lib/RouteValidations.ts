@@ -71,5 +71,11 @@ export class RouteValidatorSchema {
             artist_id:Joi.string().required()
         })
     }
+
+    static removeFromFav(){
+        return Joi.object({
+            artist_id:Joi.string().required()
+        })
+    }
 }
 
