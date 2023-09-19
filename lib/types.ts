@@ -107,7 +107,9 @@ export interface UpdateArtistRequest extends ValidatedRequestSchema {
 }
 
 export interface DeleteArtistRequest extends ValidatedRequestSchema {
-  [ContainerTypes.Body]: Artist
+  [ContainerTypes.Body]: {
+    artist_id:string
+  }
   
 }
 

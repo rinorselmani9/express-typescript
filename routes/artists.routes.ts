@@ -13,7 +13,7 @@ import {
 import ArtistController from "../controllers/artist.controller"
 
 const router = Router()
-// TODO: routes: [get my fav, remove from fav ]
+// TODO: routes: [get my fav ]
 
 router.post(
   "/add",
@@ -81,6 +81,16 @@ router.post(
   AuthMiddleware.validateTokenExpiration,
   async (req: ValidatedRequest<RemoveFromFavRequest>, res: Response) => {
     BaseResponse(res).success(await ArtistController.removeFromFav(req))
+  }
+)
+
+router.get(
+  "/favorites",
+  RouteValidator.headers(RouteValidatorSchema.currentUser()),
+  AuthMiddleware.validateAccessToken,
+  AuthMiddleware.validateTokenExpiration,
+  async (req: Request, res: Response) => {
+    BaseResponse(res).success(await ArtistController.getMyFavArtists(req))
   }
 )
 

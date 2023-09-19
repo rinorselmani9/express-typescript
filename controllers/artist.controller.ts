@@ -1,7 +1,7 @@
 import { ValidatedRequest } from "express-joi-validation"
 import ArtistService from "../services/artist.service"
 import { AddArtistRequest, AddToFavRequest, DeleteArtistRequest, RemoveFromFavRequest, UpdateArtistRequest } from "../lib/types"
-import { AlreadyAFavError, ArtistExistsError, DeleteArtistError, MyArtistsError, NoArtistsError, NotAFavError, UpdateArtistError } from "../utils/exceptions/Exceptions"
+import { AlreadyAFavError, ArtistExistsError, DeleteArtistError, MyArtistsError, NoArtistsError, NotAFavError, UnableToGetFavoritesError, UpdateArtistError } from "../utils/exceptions/Exceptions"
 import { Request } from "express"
 import UserService from "../services/user.service"
 
@@ -53,13 +53,14 @@ class ArtistController {
   
   public async deleteArtist(params:ValidatedRequest<DeleteArtistRequest>){
     const userId = params.session.user_id;
-    const artistId = params.body._id
+    const artistId = params.body.artist_id
 
     const artist = await this.artistService.findById(artistId)
     if(artist?.addedBy.toString() !== userId){
         throw new DeleteArtistError()
     }
-    
+    await this.removeFromFav(params)
+
     return await this.artistService.findByIdAndRemove(artistId)
   }
 
@@ -87,6 +88,14 @@ class ArtistController {
       await user?.save()
     }
     return true
+  }
+
+  public async getMyFavArtists(params: Request) {
+    const user = await this.userService.findWithoutPassword(params.session.user_id)
+    if (!user) {
+      throw new UnableToGetFavoritesError()
+    }
+    return await this.userService.populateArtists(params.session.user_id)
   }
 }
 

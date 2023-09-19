@@ -149,3 +149,12 @@ export class NotAFavError extends BaseError {
     super()
   }
 }
+
+export class UnableToGetFavoritesError extends BaseError {
+  name = "unable-to-get-your-favorite-artists"
+  message = "Unable to get your favorite artists"
+  statusCode = 400
+  constructor() {
+    super()
+  }
+}

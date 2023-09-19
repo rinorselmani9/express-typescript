@@ -1,5 +1,5 @@
 import { userSessionSchema } from "../entities/UserSession"
-import { RegisterRequest, ValidatedRequest } from "../lib/types"
+import { RegisterRequest, User, ValidatedRequest } from "../lib/types"
 import UserModel from "../models/DB/user.model"
 import RedisService from "./redis.service"
 import crypto from "crypto"
@@ -60,6 +60,10 @@ class UserService {
   public async findSession(access_token:string){
     const repo = await this.redisService.fetchRepo(userSessionSchema)
     return await repo.search().where('access_token').equalTo(access_token).first()
+  }
+
+  public async populateArtists(userId:string){
+    return await UserModel.findOne({_id:userId}).populate('favoriteArtists').exec()
   }
 
 }
