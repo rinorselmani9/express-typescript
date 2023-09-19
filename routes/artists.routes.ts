@@ -13,7 +13,6 @@ import {
 import ArtistController from "../controllers/artist.controller"
 
 const router = Router()
-// TODO: routes: [get my fav ]
 
 router.post(
   "/add",

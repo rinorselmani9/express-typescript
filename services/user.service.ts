@@ -1,5 +1,5 @@
 import { userSessionSchema } from "../entities/UserSession"
-import { RegisterRequest, User, ValidatedRequest } from "../lib/types"
+import { RegisterRequest, ValidatedRequest } from "../lib/types"
 import UserModel from "../models/DB/user.model"
 import RedisService from "./redis.service"
 import crypto from "crypto"
